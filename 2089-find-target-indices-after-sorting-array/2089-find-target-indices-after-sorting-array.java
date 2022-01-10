@@ -1,48 +1,19 @@
 class Solution {
     public List<Integer> targetIndices(int[] nums, int target) {
-        Arrays.sort(nums);
-        int start = floor(nums,target);
-        int end = ceil(nums,target);
-        List<Integer> result = new ArrayList<Integer>();
-        if(start == -1 || end == -1){
-            return result;
+        int belowTarget = 0, equalTarget = 0;
+        for(Integer i : nums){
+            if(i<target){
+                belowTarget++;
+            }else if(i == target){
+                equalTarget ++;
+            }
         }
         
-        for(int i = start;i<=end;i++){
-            result.add(i);
+        List<Integer> result = new ArrayList<>();
+        for(int i=0;i<equalTarget;i++){
+            result.add(belowTarget++);
         }
+        
         return result;
-    }
-    
-    int ceil(int[] nums, int target){
-        int start = 0;
-        int end =  nums.length-1;
-        int ans = -1;
-        while(start<=end){
-            int mid = end+(start-end)/2;
-            if(nums[mid]<=target){
-                ans = mid;
-                start = mid+1;
-            }else{
-                end = mid-1;
-            }
-        }
-        return ans;
-    }
-    
-    int floor(int[] nums, int target){
-        int start = 0;
-        int end =  nums.length-1;
-        int ans = -1;
-        while(start<=end){
-            int mid = end+(start-end)/2;
-            if(nums[mid]<target){
-                start = mid+1;
-            }else{
-                ans = mid;
-                end = mid-1;
-            }
-        }
-        return ans;
     }
 }
