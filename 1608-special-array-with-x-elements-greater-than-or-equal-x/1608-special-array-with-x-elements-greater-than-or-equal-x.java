@@ -9,7 +9,7 @@ class Solution {
         if(n<nums[0]){
             return n;
         }
-        for(int i=first;i<=last;i++){
+        for(int i=0;i<=n;i++){
             // System.out.println(i);
             // System.out.println(binarySearch(nums,i));
             int count =  n - (binarySearch(nums,i));
