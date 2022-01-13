@@ -53,7 +53,7 @@ class Solution {
        int limit = (int)Math.sqrt(c);
        for(int a =0;a<=limit;a++){
            int b = c - (int)(a*a);
-           if(binarySearch(0,b,b))
+           if(binarySearch(0,limit,b))
                return true;
        }
        return false;
