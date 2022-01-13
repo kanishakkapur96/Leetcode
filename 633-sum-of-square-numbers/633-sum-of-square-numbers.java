@@ -1,6 +1,6 @@
 class Solution {
     public boolean judgeSquareSum(int c) {
-        return judgeIteration(c);
+        return judgeHash(c);
     }
     
     // Iteration 
@@ -13,6 +13,23 @@ class Solution {
             }
         }
         return false;
+    }
+    
+    // Hashset
+    
+    boolean judgeHash(int c){
+        HashSet<Integer> sqrSet = new HashSet<>();
+        for(int i=0;i<=Math.sqrt(c);i++){
+            sqrSet.add(i*i);
+        }
+        
+        for(Integer i :  sqrSet){
+            if(sqrSet.contains(c-i)){
+                return true;
+            }
+        }
+        return false;
+        
     }
     
 }
