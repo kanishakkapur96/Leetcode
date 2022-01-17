@@ -12,11 +12,11 @@ class Solution {
         
         
         
-        generatePerms(nums,map,new ArrayList<Integer>(),result);
+        generatePerms(nums,map,new LinkedList<Integer>(),result);
         return result;
     }
     
-    void generatePerms(int[] nums, Map<Integer,Integer> map, List<Integer> ds, List<List<Integer>> result){
+    void generatePerms(int[] nums, Map<Integer,Integer> map, LinkedList<Integer> ds, List<List<Integer>> result){
         // base case
         if(ds.size() == nums.length){
             result.add(new ArrayList<Integer>(ds));
@@ -26,10 +26,10 @@ class Solution {
         for(Integer key: map.keySet()){
             
             if(map.get(key)!=0){
-                ds.add(key);
+                ds.addLast(key);
                 map.put(key, map.get(key)-1);
                 generatePerms(nums,map,ds,result);
-                ds.remove(ds.size()-1);
+                ds.removeLast();
                 map.put(key, map.get(key)+1);
             }
         }
