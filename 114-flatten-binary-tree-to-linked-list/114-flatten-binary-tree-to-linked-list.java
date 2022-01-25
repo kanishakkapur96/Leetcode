@@ -15,36 +15,23 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        createLinkedList(root);
-    }
-    
-    TreeNode createLinkedList(TreeNode node){
-        if(node == null) return null;
-        if(node.left == null && node.right == null) return node;
         
-        TreeNode left = createLinkedList(node.left);
-        TreeNode right = createLinkedList(node.right);
-        
-        
-        if(left!=null){
-             node.right = left;
-             node.left = null;
+        // Morris Traversal
+        TreeNode curr = root;
+        while(curr!=null){
+            if(curr.left!=null){
+                TreeNode prev = curr.left;
+                while(prev.right!=null){
+                    prev=prev.right;
+                }
+                
+                prev.right = curr.right;
+                curr.right = curr.left;
+                curr.left = null;
+            }
+            
+            curr = curr.right;
         }
-           
-        
-        if(left == null){
-            node.right = right;
-        }
-        // Traverse uptil right most element of left
-        if(left!=null && right!=null){
-            TreeNode current = node.right;
-            while(current.right!=null)
-                current = current.right;
-
-            current.right = right;
-        }
-       
-        return node;
         
     }
 }
