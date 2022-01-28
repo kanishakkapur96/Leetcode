@@ -16,12 +16,28 @@
 class Solution {
     int sum = 0;
     public TreeNode bstToGst(TreeNode root) {
-        if(root == null) return null;
+       // Iterative solution
         
-        bstToGst(root.right);
-        sum += root.val;
-        root.val = sum;
-        bstToGst(root.left);
+        if(root == null) return null;
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode current = root;
+        while(true){
+            if(current!=null){
+                st.push(current);
+                current = current.right;
+            }else{
+                if(st.isEmpty()){
+                    break;
+                }
+                
+                current = st.pop();
+                sum += current.val;
+                current.val = sum;
+                
+                current = current.left;
+            }
+        }
+        
         return root;
     }
 }
