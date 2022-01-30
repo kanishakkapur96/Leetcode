@@ -15,41 +15,36 @@
  */
 class Solution {
     public int[] findFrequentTreeSum(TreeNode root) {
-        Map<Integer,List<Integer>> inverse = new HashMap<>();
+        
         Map<Integer,Integer> map = new HashMap<>();
-        findSum(root,map);
+        List<Integer> res = new ArrayList<>();
+        int[] maxCount = new int[]{0};
+        findSum(root,map,maxCount);
         for(Integer key : map.keySet()){
-            if(inverse.containsKey(map.get(key))){
-                inverse.get(map.get(key)).add(key);
-            }else{
-                inverse.put(map.get(key), new ArrayList<Integer>());
-                inverse.get(map.get(key)).add(key);
-            }
-        }
-        Integer maxKey = Integer.MIN_VALUE;
-        for(Integer key: inverse.keySet()){
-            if(key>maxKey)
-                maxKey = key;
+            if(map.get(key) == maxCount[0])
+                res.add(key);
         }
         
-        List<Integer> res = inverse.get(maxKey);
+        
         int[] array = new int[res.size()];
         for(int i = 0; i < res.size(); i++) array[i] = res.get(i);
         return array;
         
     }
     
-    int findSum(TreeNode root, Map<Integer,Integer> map){
+    int findSum(TreeNode root, Map<Integer,Integer> map,int[] maxCount){
         if(root == null) return 0;
-        int left = findSum(root.left,map);
-        int right = findSum(root.right,map);
+        int left = findSum(root.left,map,maxCount);
+        int right = findSum(root.right,map,maxCount);
         
         int sum = root.val + left+ right;
-        if(map.containsKey(sum)) 
+        if(map.containsKey(sum)){
             map.put(sum,map.get(sum)+1);
-        else
-            map.put(sum,1);
-        
+            
+        } else{
+            map.put(sum,1);  
+        }
+        maxCount[0] = Math.max(maxCount[0],map.get(sum));
         return sum;
     }
 }
