@@ -8,6 +8,7 @@ class Solution {
         }
         for(int i=0;i<n;i++){
             if(color[i] == -1){
+                color[i] = 1;
                 if(!checkBipartite(i,graph,color)) return false;
             }
         }
@@ -16,7 +17,6 @@ class Solution {
     
     public boolean checkBipartite(int index, int[][] graph, int[] color){
         
-        if(color[index] == -1) color[index] = 1;
         for(int i: graph[index]){
             if(color[i] == -1){
                 color[i] = 1 - color[index];
