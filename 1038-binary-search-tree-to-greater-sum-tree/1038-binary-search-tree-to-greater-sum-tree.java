@@ -14,30 +14,27 @@
  * }
  */
 class Solution {
-    int sum = 0;
     public TreeNode bstToGst(TreeNode root) {
-       // Iterative solution
-        
-        if(root == null) return null;
-        Stack<TreeNode> st = new Stack<>();
-        TreeNode current = root;
-        while(true){
-            if(current!=null){
-                st.push(current);
-                current = current.right;
-            }else{
-                if(st.isEmpty()){
-                    break;
-                }
-                
-                current = st.pop();
-                sum += current.val;
-                current.val = sum;
-                
-                current = current.left;
-            }
-        }
-        
+       
+        convertTree(root,new int[]{0});
         return root;
+    }
+    
+    public void convertTree(TreeNode root, int[] sum){
+        
+        if(root == null) return ;
+        if(root.left == null && root.right == null) {
+            root.val = sum[0] + root.val;
+            sum[0] = root.val;
+            return;
+        }
+
+        if(root.right!=null) convertTree(root.right, sum);
+        
+        
+        root.val = root.val + sum[0];
+        sum[0] = root.val;
+        
+        if(root.left!=null) convertTree(root.left, sum);
     }
 }
