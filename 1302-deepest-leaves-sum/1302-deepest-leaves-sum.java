@@ -14,29 +14,26 @@
  * }
  */
 class Solution {
-    // Level order traversal
     public int deepestLeavesSum(TreeNode root) {
-        Queue<TreeNode> q =  new LinkedList<>();
-        q.offer(root);
-        int ans = 0;
-        while(!q.isEmpty()){
-            int size = q.size();
-            int count = 0;
-            int sum = 0;
-            while(count<size){
-                
-                TreeNode current = q.poll();
-                if(current.left!=null) q.offer(current.left);
-                if(current.right!=null) q.offer(current.right);
-                sum+=current.val;
-                count++;
-            }
-            
-            if(q.isEmpty()){
-                ans = sum;
-            }
+        // Find the deepest level
+        int h = height(root);
+        int[] ans = new int[]{0};
+        leafSum(root,1,h, ans);
+        return ans[0];
+    }
+    
+    int height(TreeNode root){
+        if(root == null) return 0;
+        return 1+ Math.max(height(root.left),height(root.right));
+    }
+    
+    void leafSum(TreeNode root, int currDepth, int reqDepth, int[] sum){
+        if(currDepth == reqDepth) {
+            sum[0]+=root.val;
+            return;
         }
         
-        return ans;
+        if(root.left!=null) leafSum(root.left,currDepth+1,reqDepth,sum);
+        if(root.right!=null) leafSum(root.right,currDepth+1,reqDepth,sum);
     }
 }
