@@ -5,21 +5,11 @@ class Solution {
         int[] rowMax = new int[n];
         int[] colMax = new int[n];
         
-        for(int i=0;i<n;i++){
-            int max = Integer.MIN_VALUE;
-            for(int j=0;j<n;j++){
-                if(grid[i][j]>max) max = grid[i][j];
+        for(int r = 0; r < n; ++r){
+            for(int c = 0; c < n; ++c) {
+                rowMax[r] = Math.max(rowMax[r], grid[r][c]);
+                colMax[c] = Math.max(colMax[c], grid[r][c]);
             }
-            rowMax[i] = max;
-        }
-        
-        
-        for(int i=0;i<n;i++){
-            int max = Integer.MIN_VALUE;
-            for(int j=0;j<n;j++){
-                if(grid[j][i]>max) max = grid[j][i];
-            }
-            colMax[i] = max;
         }
         
         int maxInc = 0;
